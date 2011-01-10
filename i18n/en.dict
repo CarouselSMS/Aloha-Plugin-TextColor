@@ -1,1 +1,6 @@
-button.textcolor.tooltip=Text Color
+button.textcolor.black.tooltip= Black
+button.textcolor.red.tooltip= Red
+button.textcolor.green.tooltip= Green
+button.textcolor.blue.tooltip= Blue
+
+floatingmenu.tab.color=Color
