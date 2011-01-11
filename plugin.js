@@ -1,5 +1,5 @@
 /**
- * register the plugin with unique name
+ * Text Color Plugin
  */
 GENTICS.Aloha.TextColor = new GENTICS.Aloha.Plugin('com.gentics.aloha.plugins.TextColor');
 
@@ -9,18 +9,27 @@ GENTICS.Aloha.TextColor = new GENTICS.Aloha.Plugin('com.gentics.aloha.plugins.Te
 GENTICS.Aloha.TextColor.languages = ['en', 'ru'];
 
 /**
+ * Configure the available colors
+ */
+GENTICS.Aloha.TextColor.config = {
+  colors: [
+    'black', 'dimgray', 'gray', 'darkgray', 'lightgray', 'white',
+    'red', 'green', 'blue', 'yellowgreen', 'cadetblue', 'coral'
+  ]
+};
+
+/**
  * Initialize the plugin and set initialize flag on true
  */
 GENTICS.Aloha.TextColor.init = function () {	
 	
   var that = this,
       buttons = {},
-      colors = ['black', 'red', 'green', 'blue'],
-      stylePath = GENTICS_Aloha_base + '/plugins/com.gentics.aloha.plugins.TextColor/css/TextColor.css';
-      
-  jQuery('<link rel="stylesheet" />').attr('href', stylePath).appendTo('head');
+      style = jQuery('<style></style>');
   
-  jQuery.each(colors, function(index, value){
+  jQuery.each(GENTICS.Aloha.TextColor.config.colors, function(index, value){
+    style.append('button.GENTICS_button_'+ value +' { background: '+ value +' !important; } ');
+    
     buttons[value] = new GENTICS.Aloha.ui.Button({
       "iconClass" : "GENTICS_button_" + value,
       "size" : "small",
@@ -49,10 +58,11 @@ GENTICS.Aloha.TextColor.init = function () {
   			}
   			rangeObject.select();
   			return false
-      },
-      "tooltip" : that.i18n("button.textcolor." + value + ".tooltip")
+      }
     });
   });
+  
+  style.appendTo('head');
 
   // // add it to the floating menu
   // GENTICS.Aloha.FloatingMenu.addButton(
@@ -62,7 +72,7 @@ GENTICS.Aloha.TextColor.init = function () {
   //   1
   // );
   
-  jQuery.each(colors, function(index, value){
+  jQuery.each(GENTICS.Aloha.TextColor.config.colors, function(index, value){
     GENTICS.Aloha.FloatingMenu.addButton(
       "GENTICS.Aloha.continuoustext", 
       buttons[value], 
