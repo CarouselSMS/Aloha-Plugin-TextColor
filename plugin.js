@@ -34,6 +34,7 @@ GENTICS.Aloha.TextColor.init = function () {
       "iconClass" : "GENTICS_button_" + value,
       "size" : "small",
       "onclick": function () {
+        
         if (GENTICS.Aloha.activeEditable) {
   				GENTICS.Aloha.activeEditable.obj[0].focus()
   			}
@@ -42,18 +43,11 @@ GENTICS.Aloha.TextColor.init = function () {
   			var foundMarkup = rangeObject.findMarkup(function() {
   				return this.nodeName.toLowerCase() == markup.get(0).nodeName.toLowerCase()
   			},
-  			GENTICS.Aloha.activeEditable.obj);
+  			GENTICS.Aloha.activeEditable.obj);  			  			
 
   			if (foundMarkup) {
-  				if (rangeObject.isCollapsed()) {
-  					GENTICS.Utils.Dom.removeFromDOM(foundMarkup, rangeObject, true)
-  				} else {
-  					GENTICS.Utils.Dom.removeMarkup(rangeObject, markup, GENTICS.Aloha.activeEditable.obj)
-  				}
+  			  jQuery(foundMarkup).css('color', value);  				
   			} else {
-  				if (rangeObject.isCollapsed()) {
-  					GENTICS.Utils.Dom.extendToWord(rangeObject)
-  				}
   				GENTICS.Utils.Dom.addMarkup(rangeObject, markup)
   			}
   			rangeObject.select();
